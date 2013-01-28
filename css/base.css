@@ -1,0 +1,305 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	text-decoration: none;
+	vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	line-height: 1.4em;
+}
+ol, ul {
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+body {
+	font-family: "Lucida Sans Unicode","Lucida Grande",Sans-Serif;
+	color: #0A224E;
+	background: #A0D8F1;
+	font-size: 12px;
+}
+
+
+
+/* ---------------- STYLES --------------- */
+
+#navigation{
+	float: right;
+	width: 150px;
+}
+#intro{
+	width: 450px;
+}
+
+#container{
+	margin:0 auto;
+	text-align: left;
+	width: 900px;
+}
+
+#header{
+	height: 120px;
+	color: #0A224E;
+	background: transparent url(../images/header-corners.png) no-repeat bottom left;
+}
+
+#content{
+	background-color: #fff;
+	padding: 0 15px 10px 15px;
+	-moz-border-radius: 1em 4em 1em 4em;
+    border-radius: 1em 4em 1em 4em;
+
+} 
+
+#footer{
+	margin-top: 2em;
+	background-color: rgba(255,255,255,.50);
+	text-align: center;
+	padding: 3px;
+    clear: both;
+    -moz-border-radius: 4em 1em 4em 1em;
+    border-radius: 4em 1em 4em 1em;
+}
+
+
+
+
+
+
+
+/* ---------------- LINKS --------------- */
+
+a {
+	color: #8bacbc;
+	text-decoration: none;
+}
+
+a:hover {
+    color: #E07628;
+}
+
+
+
+
+
+
+
+/* ---------------- HEADLINES --------------- */
+
+#header h1
+{
+	padding: 25px 0 10px 0;
+	margin:0;
+	text-align: center;
+	font-size: 30px;
+}
+
+#header h2 {
+    text-align: center;
+    font-size: 22px;
+    color: #fff;
+    font-weight: 400;
+}
+
+h2 {
+	border-bottom: 1px solid #A0D8F1;
+	color: #BF381A;
+	padding: 20px 0 5px 3px;
+    font-size: 18px;
+}
+
+h3 {
+    font-size: 1.2em;
+    margin: 20px 0px 15px 3px;
+}
+
+
+
+
+
+
+/* ---------------- SPECIFICS --------------- */
+
+.bold {
+    font-weight: 600;
+}
+
+p {
+	padding: 5px 0px;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 15px;
+}
+
+li {
+    padding-bottom: 10px;
+}
+
+.clear {
+    clear: both;
+}
+
+
+
+
+
+
+
+
+/* ---------------- TABLES --------------- */
+
+table {
+	border:1px solid #CCCCCC;
+	background-color: rgba(224, 118, 40, .30);
+	-moz-border-radius: 1em;
+    border-radius: 1em;
+	font-size:12px;
+	margin:0 20px 5px 5px;
+	float: left;
+	display: block;
+}
+
+th {
+	border-bottom: 1.5px solid #D15600;
+	color: #D15600;
+	font-size: 14px;
+	font-weight: 600;
+	text-align: left;
+	padding: 3px 8px;
+	text-transform: uppercase;
+}
+
+td {
+	padding: 2px;
+}
+
+
+
+
+
+/* ---------------- FORMS --------------- */
+
+textarea {
+    -moz-border-radius: .5em;
+    border-radius: .5em;
+}
+
+input[type="checkbox"] {
+    margin-bottom: 10px;
+}
+
+input.submit {
+    color: #fff;
+    background-color: #0A224E;
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+    padding: 6px;
+}
+
+input.submit:hover {
+    background-color: #E07628;
+}
+
+input.erase {
+    color: #fff;
+    background-color: #E07628;
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+    padding: 6px;
+    margin-bottom: 15px;
+}
+
+input.erase:hover {
+    background-color: #0A224E;
+}
+
+
+
+
+
+
+
+
+/* ---------------- DIALOGUES --------------- */
+
+#growl {
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+  width: 320px;
+  z-index: 10;
+}
+
+.notice {
+  position: relative;
+  min-height: 30px;
+}
+
+.skin {
+  position: absolute;
+  background-color: #E07628;
+  bottom: 0;
+  left: 0;
+  opacity: 0.8;
+  right: 0;
+  top: 0;
+  z-index: -1;
+  -moz-border-radius: 5px; -webkit-border-radius: 5px;
+}
+
+.close {
+  background: transparent url('../images/egrowl_blue.png') 0 0 no-repeat;
+  text-indent: -9999px;
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  width: 26px;
+  height: 26px;
+}
+
+#growl p {
+  background: inherit;
+  color: #FFF;
+  padding-left: 10px;
+}
+
+
+

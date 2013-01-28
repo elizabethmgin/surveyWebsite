@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Message Center</title>
+	
+	<link rel="stylesheet" href="css/base.css" type="text/css" media="screen" charset="utf-8"/>
+  <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.7.2.custom.css" type="text/css" media="screen" charset="utf-8"/>
+  <link rel="stylesheet" href="css/dialog.css" type="text/css" media="screen" charset="utf-8"/>
+
+	<script src="lib/jquery-1.4.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="lib/jquery-ui-1.7.2.custom.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="lib/script.js"></script>
+	<script type="text/javascript" src="lib/script2.js"></script>
+</head>
+<body>
+	<div id="container">
+		<div id="header">
+			<h1>Tech Survey</h1>
+			<h2>what does technology mean to you?</h2>
+		</div>
+		<div id="content">
+		  <h2>Basic Info</h2>
+			<h3>Complete this survey with two of your friends!</h3>
+			<table>
+				<th colspan="2">You</th>
+    			<tr><td colspan="2" align="center"></td></tr>
+					<form method="post" action="" onSubmit="return validate(this);">
+						<tr><td>First name:</td><td><input type="text" maxlength="32" name="fname"/></td></tr>
+						<tr><td>Last name:</td><td><input type="text" maxlength="32" name="lname"/></td></tr>
+						<tr><td>Phone number:</td><td><input type="text" maxlength="10" size="10" name="phoneNum" id="phoneNum" onkeyup="moveOnMax(this,'gender')"/></td></tr>
+						<tr><td><input type="radio" name="gender" value="male">Male</td><td><input type="radio" name="gender" value="female">Female</td></tr>
+						<tr><td style="vertical-align:text-top;">Languages:</td>
+							<td><input type="checkbox" name="lang" value="luo">Luo<br>
+								<input type="checkbox" name="lang" value="luganda">Luganda<br>
+								<input type="checkbox" name="lang" value="swahili">Swahili<br>
+								<input type="checkbox" name="lang" value="english">English<br>
+								Other:<input type="text" maxlength="10" size="5" name="langOther"/></td></tr>
+						<tr><td>Email:</td><td><input type="text" maxlength="45" name="email" onBlur='checkEmail(this)'/><span id='email-info'></span></td></tr>
+						<tr><td>Is it okay if we use <br>your information <br>for our research?</td><td><input type="checkbox" name="agree" value="Y"/>Yes, I agree</td></tr>
+						<tr><td colspan="4" align="center"><input class="submit" type="submit" value="SUBMIT"/></td></tr>
+					</form>
+			</table>
+			<table>
+				<th colspan="2">Friend #1</th>
+	    		<tr><td colspan="2" align="center"></td></tr>
+					<form method="post" action="" onSubmit="return validate(this);">
+						<tr><td>First name:</td><td><input type="text" maxlength="32" name="fname"/></td></tr>
+						<tr><td>Last name:</td><td><input type="text" maxlength="32" name="lname"/></td></tr>
+						<tr><td>Phone number:</td><td><input type="text" maxlength="10" size="10" name="phoneNum" id="phoneNum" onkeyup="moveOnMax(this,'gender')"/></td></tr>
+						<tr><td><input type="radio" name="gender" value="male">Male</td><td><input type="radio" name="gender" value="female">Female</td></tr>
+						<tr><td style="vertical-align:text-top;">Languages:</td>
+							<td><input type="checkbox" name="lang" value="luo">Luo<br>
+								<input type="checkbox" name="lang" value="luganda">Luganda<br>
+								<input type="checkbox" name="lang" value="swahili">Swahili<br>
+								<input type="checkbox" name="lang" value="english">English<br>
+								Other:<input type="text" maxlength="10" size="5" name="langOther"/></td></tr>
+						<tr><td>Email:</td><td><input type="text" maxlength="45" name="email" onBlur='checkEmail(this)'/><span id='email-info'></span></td></tr>
+						<tr><td>Is it okay if we use <br>your information <br>for our research?</td><td><input type="checkbox" name="agree" value="Y"/>Yes, I agree</td></tr>
+						<tr><td colspan="4" align="center"><input class="submit" type="submit" value="SUBMIT"/></td></tr>
+					</form>
+			</table>
+					
+			<table>
+				 <th colspan="2">Friend #2</th>
+		    	 <tr><td colspan="2" align="center"></td></tr>
+				 	<form method="post" action="" onSubmit="return validate(this);">
+				 		<tr><td>First name:</td><td><input type="text" maxlength="32" name="fname"/></td></tr>
+				 		<tr><td>Last name:</td><td><input type="text" maxlength="32" name="lname"/></td></tr>
+				 		<tr><td>Phone number:</td><td><input type="text" maxlength="10" size="10" name="phoneNum" id="phoneNum" onkeyup="moveOnMax(this,'gender')"/></td></tr>
+				 		<tr><td><input type="radio" name="gender" value="male">Male</td><td><input type="radio" name="gender" value="female">Female</td></tr>
+				 		<tr><td style="vertical-align:text-top;">Languages:</td>
+				 			<td><input type="checkbox" name="lang" value="luo">Luo<br>
+				 				<input type="checkbox" name="lang" value="luganda">Luganda<br>
+				 				<input type="checkbox" name="lang" value="swahili">Swahili<br>
+				 				<input type="checkbox" name="lang" value="english">English<br>
+				 				Other:<input type="text" maxlength="10" size="5" name="langOther"/></td></tr>
+				 		<tr><td>Email:</td><td><input type="text" maxlength="45" name="email" onBlur='checkEmail(this)'/><span id='email-info'></span></td></tr>
+				 		<tr><td>Is it okay if we use <br>your information <br>for our research?</td><td><input type="checkbox" name="agree" value="Y"/>Yes, I agree</td></tr>
+				 		<tr><td colspan="4" align="center"><input class="submit" type="submit" value="SUBMIT"/></td></tr>
+					</form>
+			</table>
+
+ 
+	<h3>What is your favorite feature of this Internet cafe?</h3>
+      <div id="rating">
+		<ul>
+        <li><a href="#" id="rating-0">Spaciousness</a></li>
+        <li><a href="#" id="rating-1">Quality of computers</a></li>
+        <li><a href="#" id="rating-2">Safety</a></li>
+        <li><a href="#" id="rating-3">Good customer service</a></li>
+		</ul>
+      </div>
+	<div class="clear"></div>
+      <!-- the dialog contents -->
+      <div id="dialog" title="Share more!">
+  <p>You chose 'spaciousness' as your favorite feature of this Internet cafe.</p>
+  <p>Why is this an important feature to you?</p>
+	<div>
+		<textarea rows="4" cols="38" name="comment-text" id="comment-text"></textarea>
+	</div>
+      </div>
+		</div>
+	<div id="growl"></div>
+
+		<div id="footer">
+			<p>
+				Creative Commons License 2013 An Xiao Mina and Elizabeth Gin
+			</p>
+		</div>
+	</div>
+</body>
+</html>
