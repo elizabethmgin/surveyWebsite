@@ -14,6 +14,15 @@
 	<script type="text/javascript" src="lib/script.js"></script>
 	<script type="text/javascript" src="lib/script2.js"></script>
 
+	<script type="text/javascript">
+	function updateSlider(slideAmount) {
+		//get the element
+		var display = document.getElementById("chosen");
+		//show the amount
+		display.innerHTML=slideAmount;
+	}
+
+	</script>
 
 </head>
 <body>
@@ -32,7 +41,12 @@
 					<form method="post" action="" onSubmit="return validate(this);">
 						<tr><td>First name:</td><td><input type="text" maxlength="32" name="fname"/></td></tr>
 						<tr><td>Last name:</td><td><input type="text" maxlength="32" name="lname"/></td></tr>
-						<tr><td>Age:</td><td><input type="text" data-slider="true" data-slider-range="60" data-slider-step="10" data-slider-snap="true"></td></tr>
+						<tr><td>Age:</td><td id="slider">
+						10 <input id="slide" type="range"
+						 min="10" max="65" step="1" value="22"
+						 onchange="updateSlider(this.value)" />
+						 65
+						</td><td id="chosen">22</td></tr>
 						<tr><td>Phone number:</td><td><input type="text" maxlength="10" size="10" name="phoneNum" id="phoneNum" onkeyup="moveOnMax(this,'gender')"/></td></tr>
 						<tr><td></td><td><input type="radio" name="gender" value="male">Male</td><td><input type="radio" name="gender" value="female">Female</td></tr>
 						<tr><td>Do you have email?</td><td><input type="radio" name="email" value="yes">Yes</td><td><input type="radio" name="email" value="no">No</td></tr>
