@@ -191,7 +191,7 @@ table {
 	background-color: rgba(224, 118, 40, .30);
 	-moz-border-radius: 1em;
     border-radius: 1em;
-	font-size:12px;
+	font-size:14px;
 	margin:0 20px 5px 5px;
 	float: left;
 	display: block;
@@ -208,7 +208,11 @@ th {
 }
 
 td {
-	padding: 2px;
+	padding: 8px 3px 0 3px;
+}
+
+tr {
+    padding-top: 15px;
 }
 
 
