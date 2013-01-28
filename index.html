@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>Message Center</title>
+	<title>Tech Survey</title>
 	
 	<link rel="stylesheet" href="css/base.css" type="text/css" media="screen" charset="utf-8"/>
   <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.7.2.custom.css" type="text/css" media="screen" charset="utf-8"/>
@@ -18,6 +18,20 @@
 	function updateSlider(slideAmount) {
 		//get the element
 		var display = document.getElementById("chosen");
+		//show the amount
+		display.innerHTML=slideAmount;
+	}
+	
+	function updateSlider1(slideAmount) {
+		//get the element
+		var display = document.getElementById("chosen1");
+		//show the amount
+		display.innerHTML=slideAmount;
+	}
+	
+	function updateSlider2(slideAmount) {
+		//get the element
+		var display = document.getElementById("chosen2");
 		//show the amount
 		display.innerHTML=slideAmount;
 	}
@@ -41,77 +55,54 @@
 					<form method="post" action="" onSubmit="return validate(this);">
 						<tr><td>First name:</td><td><input type="text" maxlength="32" name="fname"/></td></tr>
 						<tr><td>Last name:</td><td><input type="text" maxlength="32" name="lname"/></td></tr>
-						<tr><td>Age:</td><td id="slider">
+						<tr><td>Age:</td><td id="chosen">22</td></tr>
+						<tr><td></td><td id="slider">
 						10 <input id="slide" type="range"
 						 min="10" max="65" step="1" value="22"
 						 onchange="updateSlider(this.value)" />
 						 65
-						</td><td id="chosen">22</td></tr>
-						<tr><td>Phone number:</td><td><input type="text" maxlength="10" size="10" name="phoneNum" id="phoneNum" onkeyup="moveOnMax(this,'gender')"/></td></tr>
-						<tr><td></td><td><input type="radio" name="gender" value="male">Male</td><td><input type="radio" name="gender" value="female">Female</td></tr>
-						<tr><td>Do you have email?</td><td><input type="radio" name="email" value="yes">Yes</td><td><input type="radio" name="email" value="no">No</td></tr>
-						<tr><td>Is it okay if we use <br>your information <br>for our research?</td><td><input type="checkbox" name="agree" value="Y"/>Yes, I agree</td></tr>
-						<tr><td colspan="4" align="center"><input class="submit" type="submit" value="SUBMIT"/></td></tr>
+						</td></tr>
+						<tr><td>Gender:</td><td><input type="radio" name="gender" value="male">Male<br><input type="radio" name="gender" value="female">Female</td></tr>
 					</form>
 			</table>
-			<table>
-				<th colspan="2">You</th>
+			<table class="friend1">
+				<th colspan="2">Friend #1</th>
     			<tr><td colspan="2" align="center"></td></tr>
 					<form method="post" action="" onSubmit="return validate(this);">
 						<tr><td>First name:</td><td><input type="text" maxlength="32" name="fname"/></td></tr>
 						<tr><td>Last name:</td><td><input type="text" maxlength="32" name="lname"/></td></tr>
-						<tr><td>Phone number:</td><td><input type="text" maxlength="10" size="10" name="phoneNum" id="phoneNum" onkeyup="moveOnMax(this,'gender')"/></td></tr>
-						<tr><td><input type="radio" name="gender" value="male">Male</td><td><input type="radio" name="gender" value="female">Female</td></tr>
-						<tr><td style="vertical-align:text-top;">Languages:</td>
-							<td><input type="checkbox" name="lang" value="luo">Luo<br>
-								<input type="checkbox" name="lang" value="luganda">Luganda<br>
-								<input type="checkbox" name="lang" value="swahili">Swahili<br>
-								<input type="checkbox" name="lang" value="english">English<br>
-								Other:<input type="text" maxlength="10" size="5" name="langOther"/></td></tr>
-						<tr><td>Email:</td><td><input type="text" maxlength="45" name="email" onBlur='checkEmail(this)'/><span id='email-info'></span></td></tr>
-						<tr><td>Is it okay if we use <br>your information <br>for our research?</td><td><input type="checkbox" name="agree" value="Y"/>Yes, I agree</td></tr>
-						<tr><td colspan="4" align="center"><input class="submit" type="submit" value="SUBMIT"/></td></tr>
+						<tr><td>Age:</td><td id="chosen1">22</td></tr>
+						<tr><td></td><td id="slider">
+						10 <input id="slide" type="range"
+						 min="10" max="65" step="1" value="22"
+						 onchange="updateSlider1(this.value)" />
+						 65
+						</td></tr>
+						<tr><td>Gender:</td><td><input type="radio" name="gender" value="male">Male<br><input type="radio" name="gender" value="female">Female</td></tr>
 					</form>
 			</table>
-			<table>
-				<th colspan="2">You</th>
+			<table class="friend2">
+				<th colspan="2">Friend #2</th>
     			<tr><td colspan="2" align="center"></td></tr>
 					<form method="post" action="" onSubmit="return validate(this);">
 						<tr><td>First name:</td><td><input type="text" maxlength="32" name="fname"/></td></tr>
 						<tr><td>Last name:</td><td><input type="text" maxlength="32" name="lname"/></td></tr>
-						<tr><td>Phone number:</td><td><input type="text" maxlength="10" size="10" name="phoneNum" id="phoneNum" onkeyup="moveOnMax(this,'gender')"/></td></tr>
-						<tr><td><input type="radio" name="gender" value="male">Male</td><td><input type="radio" name="gender" value="female">Female</td></tr>
-						<tr><td style="vertical-align:text-top;">Languages:</td>
-							<td><input type="checkbox" name="lang" value="luo">Luo<br>
-								<input type="checkbox" name="lang" value="luganda">Luganda<br>
-								<input type="checkbox" name="lang" value="swahili">Swahili<br>
-								<input type="checkbox" name="lang" value="english">English<br>
-								Other:<input type="text" maxlength="10" size="5" name="langOther"/></td></tr>
-						<tr><td>Email:</td><td><input type="text" maxlength="45" name="email" onBlur='checkEmail(this)'/><span id='email-info'></span></td></tr>
-						<tr><td>Is it okay if we use <br>your information <br>for our research?</td><td><input type="checkbox" name="agree" value="Y"/>Yes, I agree</td></tr>
-						<tr><td colspan="4" align="center"><input class="submit" type="submit" value="SUBMIT"/></td></tr>
+						<tr><td>Age:</td><td id="chosen2">22</td></tr>
+						<tr><td></td><td id="slider">
+						10 <input id="slide" type="range"
+						 min="10" max="65" step="1" value="22"
+						 onchange="updateSlider2(this.value)" />
+						 65
+						</td></tr>
+						<tr><td>Gender:</td><td><input type="radio" name="gender" value="male">Male<br><input type="radio" name="gender" value="female">Female</td></tr>
 					</form>
 			</table>
 			
- 
-	<h3>What is your favorite feature of this Internet cafe?</h3>
-      <div id="rating">
-		<ul>
-        <li><a href="#" id="rating-0">Spaciousness</a></li>
-        <li><a href="#" id="rating-1">Quality of computers</a></li>
-        <li><a href="#" id="rating-2">Safety</a></li>
-        <li><a href="#" id="rating-3">Good customer service</a></li>
-		</ul>
-      </div>
+			<tr><td colspan="4" align="center"><input class="submit" type="submit" value="SUBMIT"/></td></tr>
+			
+
 	<div class="clear"></div>
-      <!-- the dialog contents -->
-      <div id="dialog" title="Share more!">
-  <p>You chose 'spaciousness' as your favorite feature of this Internet cafe.</p>
-  <p>Why is this an important feature to you?</p>
-	<div>
-		<textarea rows="4" cols="38" name="comment-text" id="comment-text"></textarea>
-	</div>
-      </div>
+    
 		</div>
 	<div id="growl"></div>
 

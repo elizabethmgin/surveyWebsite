@@ -50,8 +50,8 @@ q:before, q:after {
 
 body {
 	font-family: "Lucida Sans Unicode","Lucida Grande",Sans-Serif;
-	color: #0A224E;
-	background: #A0D8F1;
+	color: #007046;
+	background: #F0F0F0 ;
 	font-size: 12px;
 }
 
@@ -70,20 +70,21 @@ body {
 #container{
 	margin:0 auto;
 	text-align: left;
-	width: 900px;
+	width: 950px;
 }
 
 #header{
 	height: 120px;
-	color: #0A224E;
+	color: #007046;
 	background: transparent url(../images/header-corners.png) no-repeat bottom left;
 }
 
 #content{
-	background-color: #fff;
+	background-color: rgba(255,255,255,.80);
 	padding: 0 15px 10px 15px;
 	-moz-border-radius: 1em 4em 1em 4em;
     border-radius: 1em 4em 1em 4em;
+    box-shadow: 5px 5px 5px #585858;
 
 } 
 
@@ -95,6 +96,7 @@ body {
     clear: both;
     -moz-border-radius: 4em 1em 4em 1em;
     border-radius: 4em 1em 4em 1em;
+    color: #007046;
 }
 
 
@@ -128,18 +130,21 @@ a:hover {
 	margin:0;
 	text-align: center;
 	font-size: 30px;
+	color: #007046;
 }
 
 #header h2 {
     text-align: center;
     font-size: 22px;
-    color: #fff;
+    padding: 20px 0 5px 3px;
+    color: #F33D6E;
     font-weight: 400;
+    border-bottom: 1px solid #F33D6E;
 }
 
-h2 {
-	border-bottom: 1px solid #A0D8F1;
-	color: #BF381A;
+#content h2 {
+	border-bottom: 1px solid #F33D6E;
+	color: #F33D6E;
 	padding: 20px 0 5px 3px;
     font-size: 18px;
 }
@@ -147,6 +152,7 @@ h2 {
 h3 {
     font-size: 1.2em;
     margin: 20px 0px 15px 3px;
+    color: #007046;
 }
 
 
@@ -188,27 +194,52 @@ li {
 
 table {
 	border:1px solid #CCCCCC;
-	background-color: rgba(224, 118, 40, .30);
+	background-color: #BF5D30;
 	-moz-border-radius: 1em;
     border-radius: 1em;
 	font-size:14px;
-	margin:0 20px 5px 5px;
+	margin:0 20px 25px 5px;
 	float: left;
 	display: block;
+	color: #FFFFFF;
+	box-shadow: 3px 3px 3px #CCCCCC;
+}
+
+table.friend1 {
+    background-color: #AD2B4E;
+}
+
+table.friend1 th {
+    border-bottom: 1.5px solid #960028;
+	color: #ffffff;
+}
+
+table.friend2 {
+    background-color: #5FA92A;
+}
+
+table.friend2 th {
+    border-bottom: 1.5px solid #3D9200;
+	color: #FFFFFF;
+}
+
+table.friend2 input[type="text"] {
+    border: 1px solid #87F03C;
+
 }
 
 th {
-	border-bottom: 1.5px solid #D15600;
-	color: #D15600;
-	font-size: 14px;
+	border-bottom: 1.5px solid #A63400;
+	color: #FFFFFF;
+	font-size: 16px;
 	font-weight: 600;
 	text-align: left;
-	padding: 3px 8px;
+	padding: 6px 8px 3px 8px;
 	text-transform: uppercase;
 }
 
 td {
-	padding: 8px 3px 0 3px;
+	padding: 8px 3px 0 6px;
 }
 
 tr {
@@ -221,38 +252,56 @@ tr {
 
 /* ---------------- FORMS --------------- */
 
-textarea {
-    -moz-border-radius: .5em;
-    border-radius: .5em;
+input[type="checkbox"], input[type="radio"] {
+    margin-bottom: 10px;
+    margin-right: 7px;
 }
 
-input[type="checkbox"] {
-    margin-bottom: 10px;
+textarea, input[type="text"] {
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+    border: 1px solid #FF7B40;
+    padding: 5px;
+}
+
+input:focus {
+    border: 1px solid #E7003E;
 }
 
 input.submit {
     color: #fff;
-    background-color: #0A224E;
+    background-color: #007046;
     -moz-border-radius: .3em;
     border-radius: .3em;
     padding: 6px;
+    border: 1px solid #3D9200;
+    float: right;
+    font-size: 18px;
+    font-weight: 600;
+    margin-right: 30px;
 }
 
 input.submit:hover {
-    background-color: #E07628;
+    background-color: #E7003E;
 }
 
-input.erase {
-    color: #fff;
-    background-color: #E07628;
-    -moz-border-radius: .3em;
-    border-radius: .3em;
-    padding: 6px;
-    margin-bottom: 15px;
+
+#chosen, #chosen1, #chosen2 {
+padding-top:10px;
+text-align:center;
+color:#ffffff;
+font-weight:700;
+font-size: 16px;
 }
 
-input.erase:hover {
-    background-color: #0A224E;
+#slider {
+
+}
+
+input[type='range'] {
+-webkit-appearance: none;
+-webkit-border-radius: 5px;
+background-image: -webkit-linear-gradient(top, #A3F06C, #5FA92A, #A3F06C);
 }
 
 
@@ -279,7 +328,7 @@ input.erase:hover {
 
 .skin {
   position: absolute;
-  background-color: #E07628;
+  background-color: #FF9E73;
   bottom: 0;
   left: 0;
   opacity: 0.8;
