@@ -89,7 +89,7 @@ body {
 } 
 
 #footer{
-	margin-top: 2em;
+	margin: 2em 0em;
 	background-color: rgba(255,255,255,.50);
 	text-align: center;
 	padding: 3px;
@@ -108,12 +108,12 @@ body {
 /* ---------------- LINKS --------------- */
 
 a {
-	color: #8bacbc;
+	color: #960028;
 	text-decoration: none;
 }
 
 a:hover {
-    color: #E07628;
+    color: #007046;
 }
 
 
@@ -166,13 +166,22 @@ h3 {
     font-weight: 600;
 }
 
+.italic {
+    font-style: italic;
+}
+
 p {
-	padding: 5px 0px;
+	padding: 5px 3px;
 }
 
 ul {
     list-style-type: none;
     padding-left: 15px;
+}
+
+ol {
+    list-style-type: decimal;
+    margin-left: 2.5em;
 }
 
 li {
@@ -181,6 +190,12 @@ li {
 
 .clear {
     clear: both;
+}
+
+#status {
+    height:22px; 
+    color:#960028;
+    font-weight:bold;
 }
 
 
@@ -273,16 +288,46 @@ input.submit {
     background-color: #007046;
     -moz-border-radius: .3em;
     border-radius: .3em;
-    padding: 6px;
+    padding: 9px;
     border: 1px solid #3D9200;
     float: right;
     font-size: 18px;
     font-weight: 600;
-    margin-right: 30px;
+    margin-top: 20px;
+    margin-right: 40px;
 }
 
 input.submit:hover {
     background-color: #E7003E;
+    color: #fff;
+}
+
+div#buttons {
+    float:left;
+    height: 300px;
+    width: 170px;
+    margin-top: 70px;
+}
+
+.button {
+    color: #fff;
+    background-color: #82394C;
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+    padding: 12px 6px 6px 6px;
+    border: 1px solid #700E28;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 10px 0px;
+    width: 112px;
+    height: 25px;
+    text-align: center;
+    float: left;
+}
+
+.button:hover {
+    background-color: #AD2B4E;
+    color: #fff;
 }
 
 

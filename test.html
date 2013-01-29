@@ -1,0 +1,638 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8" />
+
+        <title>jQuery webcam plugin &bull; Code is poetry</title>
+</head>
+
+    <body>
+
+        <header>
+
+
+        </header>
+
+        <div id="main">
+
+            <div class="wrap">
+
+            <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+<link rel="stylesheet" href="_webCam/style.css" type="text/css" />
+        
+    <div id="left">
+
+        <article>
+       
+          
+<style type="text/css">
+
+#webcam, #canvas {
+	width: 320px;
+	border:20px solid #333;
+	background:#eee;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+}
+
+#webcam {
+	position:relative;
+	margin-top:50px;
+	margin-bottom:50px;
+}
+
+#webcam > span {
+	z-index:2;
+	position:absolute;
+	color:#eee;
+	font-size:10px;
+	bottom: -16px;
+	left:152px;
+}
+
+#webcam > img {
+	z-index:1;
+	position:absolute;
+	border:0px none;
+	padding:0px;
+	bottom:-40px;
+	left:89px;
+}
+
+#webcam > div {
+	border:5px solid #333;
+	position:absolute;
+	right:-90px;
+	padding:5px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	cursor:pointer;
+}
+
+#webcam a {
+	background:#fff;
+	font-weight:bold;
+}
+
+#webcam a > img {
+	border:0px none;
+}
+
+#canvas {
+	border:20px solid #ccc;
+	background:#eee;
+}
+
+#flash {
+	position:absolute;
+	top:0px;
+	left:0px;
+	z-index:5000;
+	width:100%;
+	height:500px;
+	background-color:#c00;
+	display:none;
+}
+
+object {
+	display:block; /* HTML5 fix */
+	position:relative;
+	z-index:1000;
+}
+
+</style>
+
+<script type="text/javascript" src="_webCam/js/jquery.webcam.js"></script>
+
+<h2>jQuery webcam example</h2>
+
+<p id="status" style="height:22px; color:#c00;font-weight:bold;"></p>
+
+<div id="webcam">
+	<img src="_webCam/image/antenna.png" alt="" />
+	<span>jQuery</span>
+	<div><a onClick="toggleFilter(this);"><img src="_webCam/image/icon_filter.png" alt="" /></a></div>
+</div>
+
+<p style="width:360px;text-align:center;font-size:12px"><a href="javascript:webcam.capture(3);changeFilter();void(0);">Take a picture after 3 seconds</a> | <a href="javascript:webcam.capture();changeFilter();void(0);">Take a picture instantly</a></p>
+
+<p><canvas id="canvas" height="240" width="320"></canvas></p>
+
+
+<script type="text/javascript">
+
+var pos = 0;
+var ctx = null;
+var cam = null;
+var image = null;
+
+var filter_on = false;
+var filter_id = 0;
+
+function changeFilter() {
+	if (filter_on) {
+		filter_id = (filter_id + 1) & 7;
+	}
+}
+
+function toggleFilter(obj) {
+	if (filter_on =!filter_on) {
+		obj.parentNode.style.borderColor = "#c00";
+	} else {
+		obj.parentNode.style.borderColor = "#333";
+	}
+}
+
+jQuery("#webcam").webcam({
+
+	width: 320,
+	height: 240,
+	mode: "callback",
+	swffile: "_webCam/download/jscam_canvas_only.swf",
+
+	onTick: function(remain) {
+
+		if (0 == remain) {
+			jQuery("#status").text("Cheese!");
+		} else {
+			jQuery("#status").text(remain + " seconds remaining...");
+		}
+	},
+
+	onSave: function(data) {
+
+		var col = data.split(";");
+		var img = image;
+
+		if (false == filter_on) {
+
+			for(var i = 0; i < 320; i++) {
+				var tmp = parseInt(col[i]);
+				img.data[pos + 0] = (tmp >> 16) & 0xff;
+				img.data[pos + 1] = (tmp >> 8) & 0xff;
+				img.data[pos + 2] = tmp & 0xff;
+				img.data[pos + 3] = 0xff;
+				pos+= 4;
+			}
+
+		} else {
+
+			var id = filter_id;
+			var r,g,b;
+			var r1 = Math.floor(Math.random() * 255);
+			var r2 = Math.floor(Math.random() * 255);
+			var r3 = Math.floor(Math.random() * 255);
+
+			for(var i = 0; i < 320; i++) {
+				var tmp = parseInt(col[i]);
+
+				/* Copied some xcolor methods here to be faster than calling all methods inside of xcolor and to not serve complete library with every req */
+
+				if (id == 0) {
+					r = (tmp >> 16) & 0xff;
+					g = 0xff;
+					b = 0xff;
+				} else if (id == 1) {
+					r = 0xff;
+					g = (tmp >> 8) & 0xff;
+					b = 0xff;
+				} else if (id == 2) {
+					r = 0xff;
+					g = 0xff;
+					b = tmp & 0xff;
+				} else if (id == 3) {
+					r = 0xff ^ ((tmp >> 16) & 0xff);
+					g = 0xff ^ ((tmp >> 8) & 0xff);
+					b = 0xff ^ (tmp & 0xff);
+				} else if (id == 4) {
+
+					r = (tmp >> 16) & 0xff;
+					g = (tmp >> 8) & 0xff;
+					b = tmp & 0xff;
+					var v = Math.min(Math.floor(.35 + 13 * (r + g + b) / 60), 255);
+					r = v;
+					g = v;
+					b = v;
+				} else if (id == 5) {
+					r = (tmp >> 16) & 0xff;
+					g = (tmp >> 8) & 0xff;
+					b = tmp & 0xff;
+					if ((r+= 32) < 0) r = 0;
+					if ((g+= 32) < 0) g = 0;
+					if ((b+= 32) < 0) b = 0;
+				} else if (id == 6) {
+					r = (tmp >> 16) & 0xff;
+					g = (tmp >> 8) & 0xff;
+					b = tmp & 0xff;
+					if ((r-= 32) < 0) r = 0;
+					if ((g-= 32) < 0) g = 0;
+					if ((b-= 32) < 0) b = 0;
+				} else if (id == 7) {
+					r = (tmp >> 16) & 0xff;
+					g = (tmp >> 8) & 0xff;
+					b = tmp & 0xff;
+					r = Math.floor(r / 255 * r1);
+					g = Math.floor(g / 255 * r2);
+					b = Math.floor(b / 255 * r3);
+				}
+
+				img.data[pos + 0] = r;
+				img.data[pos + 1] = g;
+				img.data[pos + 2] = b;
+				img.data[pos + 3] = 0xff;
+				pos+= 4;
+			}
+		}
+
+		if (pos >= 0x4B000) {
+			ctx.putImageData(img, 0, 0);
+			pos = 0;
+		}
+	},
+
+	onCapture: function () {
+		webcam.save();
+
+		jQuery("#flash").css("display", "block");
+		jQuery("#flash").fadeOut(100, function () {
+			jQuery("#flash").css("opacity", 1);
+		});
+	},
+
+	debug: function (type, string) {
+		jQuery("#status").html(type + ": " + string);
+	},
+
+	onLoad: function () {
+
+		var cams = webcam.getCameraList();
+		for(var i in cams) {
+			jQuery("#cams").append("<li>" + cams[i] + "</li>");
+		}
+	}
+});
+
+function getPageSize() {
+
+	var xScroll, yScroll;
+
+	if (window.innerHeight && window.scrollMaxY) {
+		xScroll = window.innerWidth + window.scrollMaxX;
+		yScroll = window.innerHeight + window.scrollMaxY;
+	} else if (document.body.scrollHeight > document.body.offsetHeight){ // all but Explorer Mac
+		xScroll = document.body.scrollWidth;
+		yScroll = document.body.scrollHeight;
+	} else { // Explorer Mac...would also work in Explorer 6 Strict, Mozilla and Safari
+		xScroll = document.body.offsetWidth;
+		yScroll = document.body.offsetHeight;
+	}
+
+	var windowWidth, windowHeight;
+
+	if (self.innerHeight) { // all except Explorer
+		if(document.documentElement.clientWidth){
+			windowWidth = document.documentElement.clientWidth;
+		} else {
+			windowWidth = self.innerWidth;
+		}
+		windowHeight = self.innerHeight;
+	} else if (document.documentElement && document.documentElement.clientHeight) { // Explorer 6 Strict Mode
+		windowWidth = document.documentElement.clientWidth;
+		windowHeight = document.documentElement.clientHeight;
+	} else if (document.body) { // other Explorers
+		windowWidth = document.body.clientWidth;
+		windowHeight = document.body.clientHeight;
+	}
+
+	// for small pages with total height less then height of the viewport
+	if(yScroll < windowHeight){
+		pageHeight = windowHeight;
+	} else {
+		pageHeight = yScroll;
+	}
+
+	// for small pages with total width less then width of the viewport
+	if(xScroll < windowWidth){
+		pageWidth = xScroll;
+	} else {
+		pageWidth = windowWidth;
+	}
+
+	return [pageWidth, pageHeight];
+}
+
+window.addEventListener("load", function() {
+
+	jQuery("body").append("<div id=\"flash\"></div>");
+
+	var canvas = document.getElementById("canvas");
+
+	if (canvas.getContext) {
+		ctx = document.getElementById("canvas").getContext("2d");
+		ctx.clearRect(0, 0, 320, 240);
+
+		var img = new Image();
+		img.src = "_webCam/image/logo.gif";
+		img.onload = function() {
+			ctx.drawImage(img, 129, 89);
+		}
+		image = ctx.getImageData(0, 0, 320, 240);
+	}
+	
+	var pageSize = getPageSize();
+	jQuery("#flash").css({ height: pageSize[1] + "px" });
+
+}, false);
+
+window.addEventListener("resize", function() {
+
+	var pageSize = getPageSize();
+	jQuery("#flash").css({ height: pageSize[1] + "px" });
+
+}, false);
+
+</script>
+
+<p>If you activate the filter with the button on the right side of the picture, methods of my already published <a href="/project/jquery-color-plugin-xcolor/">jQuery plugin xcolor</a> will be used to distort the colors of the Canvas.</p>
+
+<h2>General information about the interface</h2>
+
+<p>The following snippet describes the interface of the webcam API:</p>
+
+<pre class="prettyprint">$(&quot;#camera&quot;).webcam({
+	width: 320,
+	height: 240,
+	mode: &quot;callback&quot;,
+	swffile: &quot;_webCam/download/jscam_canvas_only.swf&quot;,
+	onTick: function() {},
+	onSave: function() {},
+	onCapture: function() {},
+	debug: function() {},
+	onLoad: function() {}
+});</pre>
+
+<h3>Config Parameter</h3>
+
+<p><strong>width</strong><br />
+The width of the flash movie.
+</p>
+<p><strong>height</strong><br />
+The height of the flash movie. Both parameters have to be changed in the Flash file as well. Follow the instructions below to recompile the swf after the size change.
+</p>
+<p><strong>mode</strong><br />
+The storage mode can be one of the following: <em>callback</em>, <em>save</em>, <em>stream</em>. Details about the usage of each parameter can be found under the according heading below.
+</p>
+<p><strong>swffile</strong><br />
+Points to the swf file of the Flash movie, which provides the webcam API. There are two swf files provided via the download archive: <strong>jscam.swf</strong>, which provides the full API and  <strong>jscam_canvas_only.swf</strong> which have no embedded JPEG library (I embedded an adjusted JPGEncoder of the <a href="http://code.google.com/p/as3corelib/">AS 3 corelib</a>). Thereby, the file is only one third as large as the original.</p>
+<p><strong>onTick</strong>, <strong>onSave</strong>, <strong>onCapture</strong><br />
+These callbacks are described in detail below, since they change with each mode.
+</p>
+
+<p><strong>onLoad</strong><br />
+The <em>onLoad</em> callback is called as soon as the registration of the interface is done. In the example above, I use the callback to get a list of all cameras available:
+</p>
+<pre class="prettyprint">onLoad: function() {
+
+    var cams = webcam.getCameraList();
+    for(var i in cams) {
+        jQuery(&quot;#cams&quot;).append(&quot;&lt;li&gt;&quot; + cams[i] + &quot;&lt;/li&gt;&quot;);
+    }
+}</pre>
+<p>Once the <em>onLoad</em> callback is called, a global object <strong>window.webcam</strong> is available, which provides the following methods:</p>
+<ul>
+<li><strong>capture(<em>[delay]</em>)</strong><br />Captures an image internally.</li>
+<li><strong>save(<em>[file]</em>)</strong><br />Saves the captured image accordingly to the storage mode.</li>
+<li><strong>getCameraList()</strong><br />Get's an array of available cameras. If no camera is installed, an error is thrown and an empty array is returned.</li>
+<li><strong>setCamera(<em>[index]</em>)</strong><br />Switches to a different camera. The parameter is the index of the element in the resulting array of <em>getCameraList()</em></li>
+</ul>
+<p><strong>debug</strong><br />
+The <em>debug</em> callback is called whenever there is a note or an error you should be notified. In the example above, I just replace the html content of the output container:
+</p>
+<pre class="prettyprint">debug: function (type, string) {
+	$("#status").html(type + ": " + string);
+}</pre>
+
+<h2>Callback Interface</h2>
+
+<p>The callback mode is used to get the raw data via a callback method to write it on a canvas element for example. The example above uses the callback mode.</p>
+
+<p>As for the processing, one can imagine how it works as follows: Once the user has completely loaded the entire page and has accepted the security setting of Flash, she should be able to see herself. Then, the user triggers the method <em>window.capture()</em>. This may optionally receive a parameter that specifies the time to wait until the image is shot. To view the passage of time, the method <em>onTick()</em> is called after every second. The received parameter of this method is the amount of seconds remaining. In the example above, I simply change the status message like this:</p>
+
+<pre class="prettyprint">onTick: function(remain) {
+
+    if (0 == remain) {
+        jQuery(&quot;#status&quot;).text(&quot;Cheese!&quot;);
+    } else {
+        jQuery(&quot;#status&quot;).text(remain + &quot; seconds remaining...&quot;);
+    }
+}</pre>
+
+<p>Is copying finished, the <em>onCapture</em> callback is called, which in the example of above immediately calls the method <em>webcam.save()</em> to ultimately write the image to the canvas. The sample code also contains a small gimmick to <strong>simulate a flash</strong> using a lightbox and jQuery's <em>fadeOut()</em> fx method.</p>
+
+<pre class="prettyprint">onCapture: function () {
+
+	jQuery(&quot;#flash&quot;).css(&quot;display&quot;, &quot;block&quot;);
+	jQuery(&quot;#flash&quot;).fadeOut(&quot;fast&quot;, function () {
+		jQuery(&quot;#flash&quot;).css(&quot;opacity&quot;, 1);
+	});
+
+	webcam.save();
+}</pre>
+
+<p>In callback mode, for every line the callback <em>onSave()</em> is invoked, which gets an integer CSV of color values (separator is the semicolon). To write the data on the canvas, I use the following method in the example above:</p>
+
+<pre class="prettyprint">onSave: function(data) {
+
+    var col = data.split(&quot;;&quot;);
+    var img = image;
+
+    for(var i = 0; i < 320; i++) {
+        var tmp = parseInt(col[i]);
+        img.data[pos + 0] = (tmp &gt;&gt; 16) &amp; 0xff;
+        img.data[pos + 1] = (tmp &gt;&gt; 8) &amp; 0xff;
+        img.data[pos + 2] = tmp &amp; 0xff;
+        img.data[pos + 3] = 0xff;
+        pos+= 4;
+    }
+
+    if (pos &gt;= 4 * 320 * 240) {
+        ctx.putImageData(img, 0, 0);
+        pos = 0;
+    }
+}</pre>
+
+<h2>Save Interface</h2>
+<p>From the view of processing, the save mode is almost identical to the callback mode. The only difference is that the <em>webcam.save()</em> method get's the file name passed as parameter. Then the shot photo is sent via <strong>HTTP_RAW_POST_DATA</strong> to the server and can be read for example with the following snippet to store or further process it in any way (Warning, input validation is not considered here!).</p>
+
+<pre class="prettyprint">webcam.save('/upload.php');</pre>
+
+<p>And on the server side, you get the image like this:</p>
+
+<pre class="prettyprint">&lt;?php
+
+$str = file_get_contents(&quot;php://input&quot;);
+file_put_contents(&quot;/tmp/upload.jpg&quot;, pack(&quot;H*&quot;, $str));
+
+?&gt;</pre>
+
+<h3>Alternative method to the upload via Flash</h3>
+
+<p>The Flash method has several problems. The implementation can lock the entire Flash movie and in the worst case the whole browser until the picture was uploaded sucessfully. A better approach is Ajax to upload the image asynchronously. Take a look at this example. It uploads a simple picture CSV if canvas elements are not implemented in the browser and sends a data url formatted string otherwise:</p>
+
+<pre class="prettyprint">
+$(function() {
+
+	var pos = 0, ctx = null, saveCB, image = [];
+
+	var canvas = document.createElement("canvas");
+	canvas.setAttribute('width', 320);
+	canvas.setAttribute('height', 240);
+	
+	if (canvas.toDataURL) {
+
+		ctx = canvas.getContext("2d");
+		
+		image = ctx.getImageData(0, 0, 320, 240);
+	
+		saveCB = function(data) {
+			
+			var col = data.split(";");
+			var img = image;
+
+			for(var i = 0; i &lt; 320; i++) {
+				var tmp = parseInt(col[i]);
+				img.data[pos + 0] = (tmp &gt;&gt; 16) & 0xff;
+				img.data[pos + 1] = (tmp &gt;&gt; 8) & 0xff;
+				img.data[pos + 2] = tmp & 0xff;
+				img.data[pos + 3] = 0xff;
+				pos+= 4;
+			}
+
+			if (pos &gt;= 4 * 320 * 240) {
+				ctx.putImageData(img, 0, 0);
+				$.post("/upload.php", {type: "data", image: canvas.toDataURL("image/png")});
+				pos = 0;
+			}
+		};
+
+	} else {
+
+		saveCB = function(data) {
+			image.push(data);
+			
+			pos+= 4 * 320;
+			
+			if (pos &gt;= 4 * 320 * 240) {
+				$.post("/upload.php", {type: "pixel", image: image.join('|')});
+				pos = 0;
+			}
+		};
+	}
+
+	$("#webcam").webcam({
+
+		width: 320,
+		height: 240,
+		mode: "callback",
+		swffile: "_webCam/download/jscam_canvas_only.swf",
+
+		onSave: saveCB,
+
+		onCapture: function () {
+			webcam.save();
+		},
+
+		debug: function (type, string) {
+			console.log(type + ": " + string);
+		}
+	});
+
+});
+</pre>
+
+<p>The server could then do something like this:</p>
+
+<pre class="prettyprint">&lt;?php
+
+if ($_POST['type'] == "pixel") {
+	// input is in format 1,2,3...|1,2,3...|...
+	$im = imagecreatetruecolor(320, 240);
+
+	foreach (explode("|", $_POST['image']) as $y => $csv) {
+		foreach (explode(";", $csv) as $x => $color) {
+			imagesetpixel($im, $x, $y, $color);
+		}
+	}
+} else {
+	// input is in format: data:image/png;base64,...
+	$im = imagecreatefrompng($_POST['image']);
+}
+
+// do something with $im
+
+?&gt;</pre>
+
+<h2>Stream interface</h2>
+<p>The stream mode is also quite the same procedure as the callback mode, with the difference that the <em>onSave</em> callback is called non-stop. The streaming starts with the method <em>webcam.capture()</em>. The <em>webcam.save()</em> method has no further effect.</p>
+
+<h2>Recompile the Flash binary</h2>
+<p>If you've made changes to the code or did just adjust the size of the video in the XML specification file, you can easily recompile the swf file from Linux console with the provided Makefile. You are required to install the two open source projects <strong>swfmill</strong> and <strong>mtasc</strong> that can be easily installed using apt-get under Debian/Ubuntu:</p>
+<pre>apt-get install swfmill mtasc
+vim src/jscam.xml
+make</pre>
+<h3>Hint about empty screens after recompilation</h3>
+<p>There is a bug in the current version of swfmill. Please try to downgrade swfmill to <strong>2.0.12</strong>, which fixes the issue!</p> 
+            
+        </article>
+
+    </div>
+
+    <div id="right">
+
+            <div id="xfacebook">
+
+<script>
+(function() {
+var i = document.getElementById('xfacebook');
+window.setTimeout(function() {
+i.innerHTML = '<iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2Fxarg%2F177419105650149&amp;width=292&amp;colorscheme=light&amp;show_faces=false&amp;border_color&amp;stream=false&amp;header=true&amp;height=62" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe>';
+}, 500);
+})();
+</script>
+
+    </div>
+
+    
+
+    </div>
+
+    <div class="clear"></div>
+
+        <script type="text/javascript" src="_webCam/js/prettify.js"></script>
+    
+    <script>
+
+    window.onload = function() {
+        prettyPrint();
+    }
+    </script>
+    
+                    </div>
+
+        </div>
+
+        <footer>
+
+            <div class="wrap">
+                &copy; 2008 &dash; 2013 Robert Eisele All rights reserved. 
+            </div>
+
+        </footer>
+            <script src="_webCam/js/default.js"></script>
+    </body>
+</html>
+
