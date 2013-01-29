@@ -21,3 +21,11 @@ class User(object):
         self.home = home
         self.age = age
         self.gender = gender
+    def set_phone(self, own_phone, phone_type):
+        self.own_phone = own_phone
+        self.phone_type = phone_type
+    def set_social_media(self, facebook, email):
+        self.facebook = facebook
+        self.email = email
+    def set_web_sites(self, web_sites):
+        self.web_sites = []
